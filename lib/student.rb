@@ -24,13 +24,20 @@ class Student
         DB[:conn].execute(sql)
   end
 
-  def save
-    sql = 
-      "INSERT INTO students (name, grade) VALUES (?, ?);"
-    binding.pry
-    DB[:conn].execute(sql, self.name, self.grade)
+  def self.create(name:, grade:)
+    student = Student.new(name, grade)
+    student.save
+    student
+  end
 
-   # @id = DB[:conn].execute("SELECT last_insert_rowid() FROM songs")[0][0]
+  def save
+    sql = <<-SQL
+      INSERT INTO students (name, grade) 
+      VALUES (?, ?)
+    SQL
+ 
+    DB[:conn].execute(sql, self.name, self.grade)
+   @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
   end
 
   def self.drop_table

@@ -12,7 +12,7 @@ class Student
           CREATE TABLE IF NOT EXISTS students (
             id INTEGER PRIMARY KEY,
             name TEXT,
-            album TEXT 
+            grade TEXT 
             )
         SQL
         DB[:conn].execute(sql)
@@ -24,9 +24,9 @@ class Student
   
   def save 
     # sql =<<-SQL
-    #         INSERT INTO students(name,album)
+    #         INSERT INTO students(name,grade)
     #         VALUES (?,?)
     #         SQL 
-    #         DB[:conn].execute(sql,self.name,self.album)
+    #         DB[:conn].execute(sql,self.name,self.grade)
   end 
 end

@@ -40,9 +40,7 @@ class Student
   end
   
   def self.create(name:, grade:)
-    student_oi = self.new(name, grade)
-    student_oi.save
-    student_oi
+    student_oi = self.new(name, grade).tap {|i| i.save}
   end
   
 end

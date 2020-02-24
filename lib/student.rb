@@ -3,10 +3,10 @@ class Student
   attr_accessor :name, :grade
   attr_reader :id 
   
-  def initialize(name, grade, id=nil)
+  def initialize(name, grade)
     @name = name 
-    @grade = grade 
-    @id = id 
+    @grade = grade
+    @id = nil 
   end 
   
   def self.create_table
@@ -23,7 +23,7 @@ class Student
   
   def self.drop_table
     sql = <<-SQL 
-    DROP TABLE students 
+    DROP TABLE IF EXISTS  students 
     SQL
     
     DB[:conn].execute(sql)
@@ -37,17 +37,10 @@ class Student
     DB[:conn].execute(sql, self.name, self.grade)
   end 
   
-  def self.create(name, grade)
+  def self.create(attr_hash)
+    attr_hash.each {|key, value| self.send(("#{key}="), value)}
     new_student = Student.new(name, grade)
     new_student.save 
     new_student 
   end 
-  
 end
-
-# #  def self.create(name, album)
-#     song = Song.new(name, album)
-#     song.save
-#     song
-#   end
-# end

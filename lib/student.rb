@@ -1,5 +1,6 @@
 class Student
-  attr_accessor :name, :grade, :id
+  attr_accessor :name, :grade
+  attr_reader :id
 
   def initialize(name, grade, id=nil)
     @id = id
@@ -8,21 +9,21 @@ class Student
   end
 
   def self.create_table
-    sql = << -SQL
+    #below is a HEREDOC
+    sql = <<-SQL
     CREATE TABLE IF NOT EXISTS students (
-      id PRIMARY KEY,
+      id INTEGER PRIMARY KEY,
       name TEXT,
-      grade INTEGER,
+      grade TEXT
       )
       SQL
 
       DB[:conn].execute(sql)  #execute SQL statement on database table
-
   end
 
   def self.drop_table
-    sql = << -SQL
-    DROP TABLE students;
+    sql= <<-SQL
+    DROP TABLE students
     SQL
     DB[:conn].execute(sql) #execute SQL statement on database table
   end
@@ -39,10 +40,16 @@ class Student
       INSERT INTO students (name, grade)
       VALUES (?, ?)
     SQL
+
     DB[:conn].execute(sql, self.name, self.grade)
+
+    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
+    #(set class instance (aka last row) = student instance id attribute)
+    #use a SQL query to grab the value of the ID column of the last inserted row,
+    #and set that equal to the given song instance's id attribute
   end
 
-  def self.create(name, grade)
+  def self.create(name:, grade:)
       student = Student.new(name, grade)
       student.save
       student

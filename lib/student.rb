@@ -1,25 +1,12 @@
-  # Remember, you can access your database connection anywhere in this class
-  #  with DB[:conn]  
-  
-  # build an app for school to track their students
-  # Each student instance will have two attributes: name and a grade (i.e. 9th, 10th, 11th, etc.)
-
 class Student
   attr_accessor :name, :grade
   attr_reader :id
-
-  # need:
-  #     a class method on the Student class that creates the students table in the database
-  #     a method that can drop that table
-  #     a method #save, that can save the data concerning an individual student object to the database
-  #     a method that both creates a new instance of the student class and then saves it to the database
 
   def initialize(name, grade, id=nil)
     @id = id
     @name = name
     @grade = grade
   end
-
 
   def self.create_table
     sql = <<-SQL

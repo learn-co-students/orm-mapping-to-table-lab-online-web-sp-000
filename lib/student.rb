@@ -47,5 +47,12 @@ class Student
     song = self.new(attribute_hash[:name], attribute_hash[:grade])
     song.tap{|s| s.save}
   end
+
+  # solutions method 
+  # def self.create(name:, grade:)
+  #   student = Student.new(name, grade)
+  #   student.save
+  #   student
+  # end
   
 end

@@ -39,9 +39,9 @@ class Student
   end
 
   def self.create(student)
-    student = Student.new(@name, @grade, @id=nil)
-    student.save
-    student
+    @@student = Student.new(@name, @grade, @id=nil)
+    @@student.save
+    @@student
   end
 
 

@@ -44,6 +44,7 @@ class Student
     # attr_hash = {name: , grade: }
     # attr_hash[name] = name
     # attr_hash[grade] = grade
+    # binding.pry
     student = Student.new(name, grade)
     student.save
     student

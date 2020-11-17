@@ -19,7 +19,7 @@ describe "Student" do
     end
   end
 
-  it 'responds to a getter for :id' do
+  it 'responds to a getter for :id' do 
     expect(josh).to respond_to(:id)
   end
 
